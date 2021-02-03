@@ -18,7 +18,26 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
 
     def __repr__(self):
+        """Represents User Object"""
         return f'<User user_id={self.user_id} email={self.email}>'
+
+class Movie(db.model):
+    """A Movie""""
+
+    __tablename__ = "movies"
+
+    movie_id = db.Column(db.Integer,
+                        primary_key=True,
+                        autoincrement=True)
+    title = db.Column(db.String)
+    overview = db.Column(db.Text)
+    release_date = db.Column(db.DateTime)
+    poster_path = db.Column(db.String)
+
+    def __repr__(self):
+        """Represents Movie Object"""
+
+        return f'<Movie movie_id={self.movie_id} title={self.title} release_date={self.release_date}>'
 
 def connect_to_db(flask_app, db_uri='postgresql:///ratings', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
