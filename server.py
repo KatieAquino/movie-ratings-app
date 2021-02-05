@@ -16,6 +16,14 @@ def show_homepage():
 
     return render_template('homepage.html')
 
+@app.route('/movies')
+def show_all_movies():
+    """Show all movies"""
+
+    movies = crud.find_movies()
+
+    return render_template('all_movies.html', movies=movies)
+
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
