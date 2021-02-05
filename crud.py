@@ -12,20 +12,24 @@ def create_user(email, password):
 
     return user
 
+
 def find_users():
     """Returns all users"""
 
     return User.query.all()
+
 
 def get_user_by_id(user_id):
     """Get a user by its id"""
 
     return User.query.get(user_id)
 
+
 def get_user_by_email(email):
     """Get user by email or return none"""
 
     return User.query.filter(User.email == email).first()
+
 
 def create_movie(title, overview, release_date, poster_path):
     """Create and return a new movie."""
@@ -40,15 +44,18 @@ def create_movie(title, overview, release_date, poster_path):
 
     return movie
 
+
 def find_movies():
     """Returns all movies"""
 
     return Movie.query.all()
 
+
 def get_movie_by_id(movie_id):
     """Get a movie by its id."""
 
     return Movie.query.get(movie_id)
+
 
 def create_rating(user, movie, score):
     """Create and return a new rating."""

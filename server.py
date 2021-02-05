@@ -16,6 +16,7 @@ def show_homepage():
 
     return render_template('homepage.html')
 
+
 @app.route('/users', methods=["POST"])
 def register_user():
     """Create a new user"""
@@ -33,6 +34,28 @@ def register_user():
         flash('Cannot create an account with that email. Try again')
     
     return redirect('/')
+
+
+@app.route('/user/login', methods=["POST"])
+def log_in_user():
+    """Log in user"""
+
+    email = request.form.get('login-email')
+    password = request.form.get('login-password')
+
+    user = crud.get_user_by_email(email)
+
+    if user:
+        if user.password == password:
+            session['user'] = user.user_id
+            flash('Successfully logged in')
+    
+    else:
+        flash('Unable to login, please try again')
+    
+    return redirect('/')
+
+
     
 
 
@@ -44,6 +67,7 @@ def show_all_movies():
 
     return render_template('all_movies.html', movies=movies)
 
+
 @app.route('/movies/<movie_id>')
 def show_movie_details(movie_id):
     """Shows details for a movie"""
@@ -51,6 +75,7 @@ def show_movie_details(movie_id):
     movie = crud.get_movie_by_id(movie_id)
 
     return render_template('movie_details.html', movie=movie)
+
 
 @app.route('/users')
 def show_all_users():
@@ -60,6 +85,7 @@ def show_all_users():
 
     return render_template('all_users.html', users=users)
 
+
 @app.route('/users/<user_id>')
 def show_user_details(user_id):
     """Show details for a user"""
@@ -67,6 +93,8 @@ def show_user_details(user_id):
     user = crud.get_user_by_id(user_id)
 
     return render_template('user_details.html', user=user)
+
+
 
 if __name__ == '__main__':
     connect_to_db(app)
